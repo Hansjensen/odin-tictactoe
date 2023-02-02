@@ -1,4 +1,27 @@
+const Player = (x) => {
 
+    let turn = false
+    let name = x
+
+    return {turn, name}
+
+}
+
+const gamePlay = (function () {
+    let playerOne = Player()
+    let playerTwo = Player()
+    
+    
+    
+    const start = () =>  {
+        playerOne.turn = true
+        playerTwo.turn = false
+    }
+
+    return {
+        start
+    }
+})()
 
 const DisplayController = (function() {
     const controlButtonOne = document.getElementById('controlButtonOne')
@@ -37,6 +60,8 @@ const DisplayController = (function() {
             gameBoard.appendChild(div3)
             console.log(gameBoard)
         }
+        gamePlay.start()
+
     }
     controlButtonOne.addEventListener('click', startGame)
     return {
@@ -45,13 +70,6 @@ const DisplayController = (function() {
 
 })();
 
-const Player = (name) => {
-
-    let turn = false
 
 
-}
-
-
-const playerTwo = ''
 
