@@ -1,27 +1,29 @@
-const Player = (x) => {
+const Player = (x, i) => {
 
     let turn = false
     let name = x
+    let mark = i
 
     return {turn, name}
 
 }
 
 const gamePlay = (function () {
-    let playerOne = Player()
-    let playerTwo = Player()
+    let playerOne = Player('Player One', 'X')
+    let playerTwo = Player('Player Two', 'O')
     
     
-    
-    const start = () =>  {
+     const start = () =>  {
         playerOne.turn = true
         playerTwo.turn = false
+        playerOne.mark = 'X'
+        playerTwo.mark = 'O'
     }
 
-    return {
-        start
+     return {
+        start , playerOne , playerTwo
     }
-})()
+})();
 
 const DisplayController = (function() {
     const controlButtonOne = document.getElementById('controlButtonOne')
@@ -38,7 +40,6 @@ const DisplayController = (function() {
         const gameMessage = document.createElement('h3')
         gameHeader.setAttribute('id', 'gameHeader')
         gameMessage.setAttribute('id', 'gameMessage')
-        gameMessage.textContent = "Welcome!"
         const gameBoard = document.createElement('div')
         gameBoard.setAttribute('ID', 'gameBoard')
         
@@ -61,6 +62,8 @@ const DisplayController = (function() {
             console.log(gameBoard)
         }
         gamePlay.start()
+        gameMessage.textContent = gamePlay.playerOne.name + "'s Turn!"
+
 
     }
     controlButtonOne.addEventListener('click', startGame)
