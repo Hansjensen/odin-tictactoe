@@ -73,7 +73,7 @@ body {
 
 }
 
-.gameBoard > div {
+#gameBoard > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,49 +89,49 @@ body {
     cursor: pointer;
 }
 
+#a0 {
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+}
+#b0 {
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    border-left: 4px solid black;
+
+}
+#c0 {
+    border-bottom: 4px solid black;
+    border-left: 4px solid black;
+}
 #a1 {
     border-right: 4px solid black;
     border-bottom: 4px solid black;
+    border-top: 4px solid black;
 }
 #b1 {
     border-right: 4px solid black;
     border-bottom: 4px solid black;
+    border-top: 4px solid black;
     border-left: 4px solid black;
 
 }
 #c1 {
     border-bottom: 4px solid black;
+    border-top: 4px solid black;
     border-left: 4px solid black;
 }
 #a2 {
-    border-right: 4px solid black;
-    border-bottom: 4px solid black;
     border-top: 4px solid black;
+    border-right: 4px solid black;
+
 }
 #b2 {
-    border-right: 4px solid black;
-    border-bottom: 4px solid black;
     border-top: 4px solid black;
     border-left: 4px solid black;
+    border-right: 4px solid black;
 
 }
 #c2 {
-    border-bottom: 4px solid black;
-    border-top: 4px solid black;
-    border-left: 4px solid black;
-}
-#a3 {
-    border-top: 4px solid black;
-    border-right: 4px solid black;
-
-}
-#b3 {
-    border-top: 4px solid black;
-    border-left: 4px solid black;
-    border-right: 4px solid black;
-
-}
-#c3 {
     border-top: 4px solid black;
     border-left: 4px solid black;
 }
@@ -143,6 +143,8 @@ body {
     width: 200px;
     margin-top: 15px;
     border-radius: 5px;
+    color: black;
+    text-align: center;
 }
 
 #controlButtonOne:hover {
