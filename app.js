@@ -9,8 +9,9 @@ const Player = (x) => {
 }
 
 const gamePlay = (function () {
-    let playerOne = Player('Player One', 'X')
-    let playerTwo = Player('Player Two', 'O')
+
+    let playerOne = Player(name, 'X')
+    let playerTwo = Player(name, 'O')
     let boardDiv = [[],[],[]]
     
     const playerTurn = (x) => {
@@ -164,6 +165,7 @@ const DisplayController = (function() {
     gameMessage.setAttribute('id', 'gameMessage')
     gameBoard.setAttribute('ID', 'gameBoard')
     let controlButtonTwo = document.createElement('div')
+    const nameForm = document.createElement('form')
 
     const playerTurn = (player) => {
         //change message to show whos turn
@@ -172,7 +174,7 @@ const DisplayController = (function() {
     
     const startGame = () => {
         // Remove Start Button
-        controlButtonOne.remove()
+        nameForm.remove()
 
         //append children
         gameWrapper.appendChild(gameHeader)
@@ -241,39 +243,46 @@ const DisplayController = (function() {
     }
 
     const getNames = () => {
-        const form = document.createElement('form')
-        form.classlist.add('form')
+        controlButtonOne.remove()
+        
+        nameForm.setAttribute('class' , 'nameForm');
         const labelp1 = document.createElement('label')
         const inputp1 = document.createElement('input')
         const labelp2 = document.createElement('label')
         const inputp2 = document.createElement('input')
-        const sumbit = document.createElement('button')
+        const submit = document.createElement('button')
         labelp1.setAttribute('for', 'name1' )
-        labelp1.classlist.add('label' )
+        labelp1.classList.add('label' )
+        labelp1.textContent = 'Player One Name'
         labelp2.setAttribute('for', 'name2' )
-        labelp2.classlist.add('label' )
+        labelp2.classList.add('label' )
+        labelp2.textContent = 'Player Two Name'
         inputp1.setAttribute('id', 'name1' )
         inputp1.setAttribute('name', 'name1' )
-        inputp1.classlist.add('input' )
+        inputp1.classList.add('input' )
         inputp2.setAttribute('id', 'name2' )
         inputp2.setAttribute('name', 'name2' )
-        inputp2.classlist.add('input')
+        inputp2.classList.add('input')
         submit.setAttribute('type', 'submit')
         submit.setAttribute('value', 'submit')
         submit.setAttribute('id', 'controlButtonOne')
-        form.appendChild('labelp1')
-        form.appendChild('inputp1')
-        form.appendChild('labelp2')
-        form.appendChild('inputp2')
-        form.appendChild('submit')
-        gameWrapper.appendChild()
-
+        submit.classList.add('center')
+        submit.textContent = 'PLAY'
+        submit.addEventListener('click', startGame)
+        nameForm.appendChild(labelp1)
+        nameForm.appendChild(inputp1)
+        nameForm.appendChild(labelp2)
+        nameForm.appendChild(inputp2)
+        nameForm.appendChild(submit)
+        gameWrapper.appendChild(nameForm)
+    
+        
     }
 
 
-    controlButtonOne.addEventListener('click', startGame)
+    controlButtonOne.addEventListener('click', getNames)
     return {
-        startGame, playerTurn, winner, tieGame
+        startGame, playerTurn, winner, tieGame, getNames
     }
 
 })();
