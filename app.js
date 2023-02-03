@@ -1,21 +1,22 @@
 const Player = (x) => {
-
     let turn = false
     let name = x
     let moves = []
 
+   
     return {turn, name, moves}
 
 }
 
 const gamePlay = (function () {
-
-    let playerOne = Player(name, 'X')
-    let playerTwo = Player(name, 'O')
+    const playerOne = Player()
+    const playerTwo = Player()
     let boardDiv = [[],[],[]]
     
+    
+
     const playerTurn = (x) => {
-        console.log(x)
+        
         let buttonPushed = x.target;
         let scoreKeep = x.target.id;
         if (buttonPushed.textContent == '')
@@ -124,7 +125,19 @@ const gamePlay = (function () {
     }
     
     
-     const start = () =>  {
+     const start = (name1, name2) =>  {
+        playerOne.name = name1
+        playerTwo.name = name2
+        if (name1 === "") {
+            playerOne.name = 'Player One'
+            
+        }
+        if (name2 === "") {
+            playerTwo.name = 'Player Two'
+        }
+    
+        
+        
         playerOne.turn = true
         playerTwo.turn = false
         playerOne.mark = 'X'
@@ -148,10 +161,10 @@ const gamePlay = (function () {
             gameDiv.addEventListener('click', playerTurn)
             boardDiv[i].push(gameDiv)
         }
-        console.log(boardDiv)
+        return playerOne, playerTwo
     }   
     return {
-        start , playerOne , playerTwo, boardDiv, playerTurn, playAgain
+        start , playerOne, playerTwo, boardDiv, playerTurn, playAgain
     }
 })();
 
@@ -164,8 +177,9 @@ const DisplayController = (function() {
     gameHeader.setAttribute('id', 'gameHeader')
     gameMessage.setAttribute('id', 'gameMessage')
     gameBoard.setAttribute('ID', 'gameBoard')
-    let controlButtonTwo = document.createElement('div')
+    let controlButtonTwo = document.createElement('button')
     const nameForm = document.createElement('form')
+    
 
     const playerTurn = (player) => {
         //change message to show whos turn
@@ -174,12 +188,21 @@ const DisplayController = (function() {
     
     const startGame = () => {
         // Remove Start Button
+       let player1 = document.getElementById('name1').value
+        let player2 = document.getElementById('name2').value 
+        
+       
         nameForm.remove()
+        //create start over button
+        controlButtonTwo.setAttribute('id', 'controlButtonOne')
+        controlButtonTwo.textContent = "START OVER"
 
         //append children
         gameWrapper.appendChild(gameHeader)
         gameHeader.appendChild(gameMessage)
         gameWrapper.appendChild(gameBoard)
+        gameWrapper.appendChild(controlButtonTwo)
+
          for (let i = 0; i < 3; i++) {
             let div1 = document.createElement('div')
             div1.setAttribute('id', 'a' + i)
@@ -197,7 +220,8 @@ const DisplayController = (function() {
             gameBoard.appendChild(div3)
             
         }
-        gamePlay.start()
+        gamePlay.start(player1, player2)
+        
         gameMessage.textContent = gamePlay.playerOne.name + "'s Turn!"
 
 
@@ -205,8 +229,8 @@ const DisplayController = (function() {
 
     const playAgain = () => {
         // Remove Start Button
+        controlButtonTwo.textContent ="START OVER"
         controlButtonTwo.remove()
-        
         //reset divs
         let marker = gameBoard.querySelectorAll('div.gamediv')
         marker.forEach((element) => element.textContent = '')
@@ -215,6 +239,7 @@ const DisplayController = (function() {
         //append children
         
         gameWrapper.appendChild(gameBoard)
+        gameWrapper.appendChild(controlButtonTwo)
         gamePlay.playAgain()
         gameMessage.textContent = gamePlay.playerOne.name + "'s Turn!"
 
@@ -227,7 +252,6 @@ const DisplayController = (function() {
         gameMessage.textContent = player + ' wins!'
         controlButtonTwo.setAttribute('id', 'controlButtonOne')
         controlButtonTwo.textContent = "PLAY AGAIN"
-        controlButtonTwo.addEventListener('click', playAgain)
         gameWrapper.appendChild(controlButtonTwo)
     
     }
@@ -259,27 +283,32 @@ const DisplayController = (function() {
         labelp2.textContent = 'Player Two Name'
         inputp1.setAttribute('id', 'name1' )
         inputp1.setAttribute('name', 'name1' )
+        inputp1.setAttribute('type', 'text')
         inputp1.classList.add('input' )
         inputp2.setAttribute('id', 'name2' )
         inputp2.setAttribute('name', 'name2' )
+        inputp2.setAttribute('type', 'text')
         inputp2.classList.add('input')
         submit.setAttribute('type', 'submit')
         submit.setAttribute('value', 'submit')
         submit.setAttribute('id', 'controlButtonOne')
         submit.classList.add('center')
         submit.textContent = 'PLAY'
+        
         submit.addEventListener('click', startGame)
+        
         nameForm.appendChild(labelp1)
         nameForm.appendChild(inputp1)
         nameForm.appendChild(labelp2)
         nameForm.appendChild(inputp2)
         nameForm.appendChild(submit)
         gameWrapper.appendChild(nameForm)
-    
+        
+        
         
     }
 
-
+    controlButtonTwo.addEventListener('click', playAgain)
     controlButtonOne.addEventListener('click', getNames)
     return {
         startGame, playerTurn, winner, tieGame, getNames
